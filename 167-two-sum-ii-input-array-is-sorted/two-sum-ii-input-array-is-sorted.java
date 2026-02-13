@@ -1,27 +1,23 @@
 class Solution {
-     private static int bs(int[] numbers, int target,int l,int r){
-         while(l<=r){
-           int mid = l+(r-l)/2;
-           if(numbers[mid]==target){
-            return mid;
-           }else if(numbers[mid]<target)l=mid+1;
-           else r=mid-1;
+    public int[] twoSum(int[] numbers, int target) {
+     //O(n) optimality using 2 ptrs
+     //init thought of using l=0,r=0;
+     //but that doesnt reduce the search space as the sum keeps increasing
+     //as the array is sorted we need to be smart in decreasing the search space
+     int n = numbers.length;
+     int l=0;
+     int r=n-1;   
+     while(l<=r){
+         int sum = numbers[l]+numbers[r];
+         if(sum==target) return new int[]{l+1,r+1};
+         else if(sum<target){
+            //improve the sum
+          l++;
+         }else{
+            //decrement the sum
+            r--;
          }
-         return -1;
      }
-     public int[] twoSum(int[] numbers, int target) {
-         //no use of hashmap as indicated
-         //also indices are 1 indexed(what u have to return is 1 indexed)
-         //bs is an answer(bforce)
-         int n = numbers.length;
-         //nlogn complexity
-         for(int i=0;i<n;i++){
-             int start = numbers[i];
-             int key = target-start;
-             //start the search space from i+1 to n-1
-             int ind2=bs(numbers,key,i+1,n-1);
-             if(ind2!=-1) return new int[]{i+1,ind2+1};
-         }
-         return new int[]{-1,-1};     
+     return new int[]{-1,-1};
      }
 }
