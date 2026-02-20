@@ -1,29 +1,26 @@
 class Solution {
      public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-         int m =  nums1.length;
-         int n = nums2.length;
-         if(m>n) return findMedianSortedArrays(nums2,nums1);
-         int lo=0;
-         int hi=m;
-       while(lo<=hi){
-         int cut1 = (lo+hi)/2;
-         int cut2 = (m+n+1)/2-cut1;
-         int left1=(cut1==0)?Integer.MIN_VALUE:nums1[cut1-1];
-         int right1=(cut1==m)?Integer.MAX_VALUE:nums1[cut1];
-         int left2=(cut2==0)?Integer.MIN_VALUE:nums2[cut2-1];
-         int right2=(cut2==n)?Integer.MAX_VALUE:nums2[cut2];
-         if(left1<=right2 && left2<=right1){
-             if((m+n)%2==0){
-             return (Math.max(left1,left2)+Math.min(right1,right2))/2.0;
-             }else{
-                return Math.max(left1,left2);
-             }
-         }else if(left1>right2){
-           hi=cut1-1;
-         }else{
-           lo=cut1+1; 
-         }
-       }
-       return -1;   
-     } 
+      //O(m+n) worse in tc and not what the q expects. But deffo more intuitive
+      int m = nums1.length;
+      int n = nums2.length;
+      int i=0,j=0;
+      int prev=0,curr=0;
+      int ct=0;
+      int mid = (m+n)/2;
+      while(ct<=mid){
+        prev=curr;
+        //i finished so only possibilty is to take from other arr and move j
+        if(i==m) curr = nums2[j++];
+        else if(j==n) curr = nums1[i++];
+        else if(nums1[i]<=nums2[j]) curr=nums1[i++];
+        else curr=nums2[j++];
+        ct=ct+1;
+      }
+      //if even
+      if((m+n)%2==0){
+        return (prev+curr)/2.0;
+      }
+      //for odd length
+      return curr;    
+     }
 }
