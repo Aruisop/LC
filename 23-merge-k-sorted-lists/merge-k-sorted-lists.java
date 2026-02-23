@@ -9,40 +9,26 @@
  * }
  */
 class Solution {
-     private static ListNode merge2(ListNode l1, ListNode l2){
-         ListNode dummy = new ListNode(-1);
-         ListNode tmp=dummy;
-         while(l1!=null && l2!=null){
-           if(l1.val<=l2.val){
-            tmp.next = l1;
-            l1=l1.next;
-           }else{
-            tmp.next = l2;
-            l2=l2.next;
-           } 
-           tmp=tmp.next;   
-         }
-         if(l1!=null) tmp.next=l1;
-         else tmp.next=l2;
-         return dummy.next;
-     }
-     private static ListNode rec(int lo, int hi,ListNode[]lists){
-         //only 1 ele
-         if(lo==hi) return lists[lo];
-         int mid = lo+(hi-lo)/2;
-         ListNode left = rec(lo,mid,lists);
-         ListNode right = rec(mid+1,hi,lists);
-         ListNode merged = merge2(left,right);
-         return merged;
-     }
      public ListNode mergeKLists(ListNode[] lists) {
-         // space comp comes from the rec stack rewiring nodes, for sp optimizn use Min Heap
+         //space optimised O(k) solution with min heap
          //TC: O(nlogk)
-         //SC: O(nlogk)   
+         int n = lists.length;
          if(lists.length==0) return null;
-          //    int lo = 0;
-          //    int hi = lists.length-1;
-         ListNode res = rec(0,lists.length-1,lists);
-         return res;
+         PriorityQueue<ListNode>pq=new PriorityQueue<>((a,b)->(a.val-b.val));
+         for(ListNode ele:lists){
+         if(ele!=null)
+         pq.offer(ele);
+         }
+         ListNode dummy = new ListNode(-1);
+         ListNode tail = dummy;
+       while(!pq.isEmpty()){
+         ListNode top = pq.poll();
+         tail.next = top;
+         tail=top;
+         if(top.next!=null){
+            pq.offer(top.next);
+         }
+       }
+       return dummy.next;
      }
 }
