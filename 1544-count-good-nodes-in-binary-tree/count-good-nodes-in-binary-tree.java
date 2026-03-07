@@ -14,22 +14,17 @@
  * }
  */
 class Solution {
+     private static int rec(TreeNode root, int maxSoFar){
+        if(root==null) return 0;
+        int goodnodes = (root.val>=maxSoFar)?1:0;
+        maxSoFar = Math.max(maxSoFar,root.val);
+        return goodnodes+rec(root.left,maxSoFar)+rec(root.right,maxSoFar);
+     }
      public int goodNodes(TreeNode root) {
-      //BFS Approach(More Intuit)
-      //TC: O(n)
-      //SC: O(n)
-      Queue<Pair<TreeNode,Integer>>q=new LinkedList<>();
-      q.offer(new Pair<>(root,root.val));
-      int ct=0;
-      while(!q.isEmpty()){
-         Pair<TreeNode,Integer> curr = q.poll();
-         TreeNode currRoot = curr.getKey();
-         int maxSoFar = curr.getValue();
-         if(currRoot.val>=maxSoFar) ct++;
-         int max = Math.max(currRoot.val,maxSoFar);
-         if(currRoot.left!=null) q.offer(new Pair<>(currRoot.left,max));
-         if(currRoot.right!=null) q.offer(new Pair<>(currRoot.right,max));
-      }
-      return ct;    
+         //DFS Approach, is to count whether the branch leads to a good node ct or not
+         //if so, then add 1 to ans
+         //TC: O(n)
+         //SC: O(logn){ht of bin tree}
+          return rec(root,root.val);
      }
 }
