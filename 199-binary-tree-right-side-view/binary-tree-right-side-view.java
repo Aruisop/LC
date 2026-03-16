@@ -14,23 +14,21 @@
  * }
  */
 class Solution {
-     public List<Integer> rightSideView(TreeNode root) {
-        //space-optimized
-      List<Integer>ans=new ArrayList<>();
-      Queue<TreeNode>q=new LinkedList<>();
-      if(root==null) return new ArrayList<>();
-      q.offer(root);
-      while(!q.isEmpty()){
-         int qsize = q.size();
-         List<Integer>tmp=new ArrayList<>();
-         for(int i=0;i<qsize;i++){
-            TreeNode curr = q.poll();
-            tmp.add(curr.val);
-            if(i == qsize-1) ans.add(tmp.get(i));
-            if(curr.left!=null) q.offer(curr.left);
-            if(curr.right!=null) q.offer(curr.right);
+     private static void rec(TreeNode root, int depth, List<Integer>ans){
+         if(root==null) return;
+         //highly imp dry run for the rec soln  
+         if(depth==ans.size()){
+           ans.add(root.val);
          }
-      }
-      return ans;    
+         rec(root.right,depth+1,ans);
+         rec(root.left,depth+1,ans);
+     }
+     public List<Integer> rightSideView(TreeNode root) {
+      //TC:O(n)
+      //SC:O(logn) rec stack space is logarithmic (ht based)
+      if(root==null) return new ArrayList<>();
+      List<Integer>ans=new ArrayList<>();
+      rec(root,0,ans);
+      return ans;
      }
 }
