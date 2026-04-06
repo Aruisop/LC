@@ -1,44 +1,40 @@
 class Solution {
      public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-     List<List<List<Integer>>>adj=new ArrayList<>();
-     for(int i=0;i<n;i++){
-        adj.add(new ArrayList<>());
-     }    
+        //Better version ong
+        // TC: O(E*k)
+        //SC: O(V+E)
+     List<List<int[]>>adj=new ArrayList<>();
+     int dist[]=new int[n];
+     Arrays.fill(dist,Integer.MAX_VALUE);
+     for(int i=0;i<n;i++) adj.add(new ArrayList<>());
      for(int f[]:flights){
         int u = f[0];
         int v = f[1];
         int wt = f[2];
-        adj.get(u).add(Arrays.asList(v,wt));
+        adj.get(u).add(new int[]{v,wt});
      }
-     PriorityQueue<int[]>pq=new PriorityQueue<>((a,b)->Integer.compare(a[1],b[1]));
-     pq.offer(new int[]{src,0,0});
-     //the second dimension tracks the number of edges used; 
-     //we minimise(cost(nodes,stops/edgesused))
-     //the maxm no of edges we can use for k stops is k+1 edges
-     //from 0 to k+1 there are k+1-0+1(k+2) values
-     //rest all is same as Djik
-     int dist[][]=new int[n][k+2];
-     for(int d[]:dist){
-        Arrays.fill(d,Integer.MAX_VALUE);
-     }
-     dist[src][0]=0;
-     while(!pq.isEmpty()){
-         int curr[]=pq.poll();
-         int u = curr[0];
-         int cost = curr[1];
-         int stops = curr[2];
-         if(u==dst) return cost;
-         //invalid
-         if(stops>k) continue;
-         for(List<Integer>neigh:adj.get(u)){
-             int v = neigh.get(0);
-             int wt = neigh.get(1);
-             if(dist[v][stops+1]>cost+wt){
-                dist[v][stops+1]=cost+wt;
-                pq.offer(new int[]{v,cost+wt,stops+1});
+     Queue<int[]>q=new LinkedList<>();
+     dist[src] = 0;
+     q.offer(new int[]{src,0});
+     int lvl = 0;
+     while(!q.isEmpty() && lvl<=k){
+         int qsize = q.size();
+         for(int i=0;i<qsize;i++){
+             int curr[]=q.poll();
+             int u = curr[0];
+             int d = curr[1];
+             for(int[]nei:adj.get(u)){
+                 int v = nei[0];
+                 int vwt = nei[1];
+                 if(d+vwt<dist[v]){
+                    dist[v]=d+vwt;
+                    q.offer(new int[]{v,d+vwt});
+                 }
              }
-         }   
-     }
-     return -1;
+          }
+         lvl++;
+         }
+         if(dist[dst]==Integer.MAX_VALUE) return -1;
+         return dist[dst];   
      }
 }
