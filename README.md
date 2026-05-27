@@ -7,7 +7,7 @@
 
 [![Language](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge&logo=java)](https://www.java.com/)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Aruisop/LC?style=for-the-badge&logo=github)
-![GitHub commit count](https://img.shields.io/github/commit-activity/y/Aruisop/LC?style=for-the-badge&logo=git&label=Yearly%20Commits&color=blue)
+![GitHub commits](https://img.shields.io/github/commit-activity/t/Aruisop/LC?style=for-the-badge&logo=git&label=Total%20Commits&color=blue)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 </div>
