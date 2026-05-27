@@ -2,7 +2,7 @@
 
 # Solutions to some LeetCode problems
 
-### A curated collection of algorithmic problems and their corresponding solutions in Java
+### A curated collection of algorithmic problems and their corresponding solutions in Java 
 ### Made possible with LeetSync
 
 [![Language](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge&logo=java)](https://www.java.com/)
