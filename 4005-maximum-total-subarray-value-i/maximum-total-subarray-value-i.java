@@ -1,17 +1,17 @@
 class Solution {
      public long maxTotalValue(int[] nums, int k) {
          //wow
-         //TC: O(nlogn)
-         //SC: O(n)
+         //TC: O(n)
+         //SC: O(1)
          int n = nums.length;
-         int copy[] = new int[n];
-         int l =0;
+         int max = Integer.MIN_VALUE;
+         int min = Integer.MAX_VALUE;
          for(int ele:nums){
-            copy[l++]=ele;
+            max = Math.max(ele,max);
          }
-         Arrays.sort(copy);
-         int maxele = copy[n-1];
-         int minele = copy[0];
-         return (long)(maxele-minele)*k;
+         for(int ele:nums){
+            min = Math.min(ele,min);
+         }
+         return (long)(max-min)*k;
          }
 }
