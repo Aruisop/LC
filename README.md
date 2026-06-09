@@ -15,14 +15,14 @@
 ---
 
 ## About
-- This repo is my curated list of problems that I have identified as being considered as **important** for tech interviews.
+- This repo is a curated list of problems that I consider **important** for tech interviews.
 - Not **complete**, I am still working on adding some problems and this repo will regularly be maintained.
 - All solutions are not necessarily optimal, but my means of identifying the **most intuitive** approach for going about a particular problem.
 ---
 
 ## Philosophy
 
-- The problems selected are specifically weighted toward **NeetCode 150** and **Striver's A2Z DSA Sheet**.
+- The problems selected are primarily weighted toward **NeetCode 150** and **Striver's A2Z DSA Sheet**.
 
 ---
 
@@ -43,7 +43,7 @@ git commit -m "Optimize solution using two-pointer O(1) space"
 # Open a Pull Request
 ```
 
-Please keep solutions in Java and include a brief comment explaining the time/space complexity.
+Please keep solutions in Java or Go and include a brief comment explaining the time and space complexity.
 
 ---
 
