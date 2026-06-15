@@ -10,30 +10,21 @@
  */
 class Solution {
      public ListNode deleteMiddle(ListNode head) {
-         if(head==null || head.next==null) return null;
-         ListNode temp = head;
-         int n = 0;
-         while(temp!=null){
-            n++;
-            temp=temp.next;
-         }
-         if(n==1) return null;
-         temp=head;
-         //safest instead of l+(r-l)/2
-         int middle = n/2;
-         ListNode curr=temp;
-         int idx=0;
-         while(temp!=null){
-            //stop one before the middle and delete the middle
-           if(idx==middle-1){
-             ListNode mid = temp.next;
-             ListNode nexttomid = mid.next;
-             temp.next = nexttomid;
-             mid.next=null;
-           }
-           temp=temp.next;
-           idx++;
-         }
-         return curr;
+         //Optimised Commit
+         //TC: O(n)
+         //SC: O(1)
+         if(head==null) return null;
+         if(head.next==null) return null;
+         ListNode slow =head,fast=head;
+         ListNode slowprev = null;
+         while(fast!=null && fast.next!=null){
+          slowprev=slow;
+          slow = slow.next;
+          fast = fast.next.next;
+          }
+          slowprev.next = null;
+          slowprev.next=slow.next;
+          return head; 
+
      }
 }
