@@ -18,7 +18,7 @@ class Solution {
              int potential_bar = Math.min(ct,coins/i);
              bars+=potential_bar;
              coins-=potential_bar*i;
-             if(coins<ct) continue;
+             if(coins<i) continue;
          }
          return bars;
      }
