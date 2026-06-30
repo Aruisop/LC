@@ -1,20 +1,27 @@
 class Solution {
      public int numberOfSubstrings(String s) {
-         int l = 0;
+         //Optimal
+         //TC: O(n)
+         //SC: O(1)  
+         int endA = -1;
+         int endB = -1;
+         int endC = -1;
+         int min = Integer.MAX_VALUE;
          int n = s.length();
-         HashMap<Character,Integer>hm=new HashMap<>();
-         int ct=0;
-         //n-r substrs is imp to remember, is invariant here if freq>0 for all chars
-       for(int r=0;r<n;r++){
-         char right = s.charAt(r);
-         hm.put(right,hm.getOrDefault(right,0)+1);
-         while(hm.getOrDefault('a',0)>0 && hm.getOrDefault('b',0)>0 && hm.getOrDefault('c',0)>0){
-          ct+=n-r;
-          char left = s.charAt(l);
-          hm.put(left,hm.get(left)-1);
-          l++;
+         int ans= 0;
+         for(int i=0;i<n;i++){
+             if(s.charAt(i)=='a'){
+               endA = i;
+             }else if(s.charAt(i)=='b'){
+               endB = i; 
+             }else{
+               endC = i; 
+             }
+             min = Math.min(endA,Math.min(endA,Math.min(endB,endC)));
+             if(endA>-1 && endB>-1 && endC>-1){
+                ans+=min+1;
+             }  
          }
-         }
-       return ct;   
+        return ans;
      }
 }
