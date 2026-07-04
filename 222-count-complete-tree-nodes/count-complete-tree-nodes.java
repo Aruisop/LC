@@ -14,15 +14,23 @@
  * }
  */
 class Solution {
-     private static int rec(TreeNode root){
-      if(root==null) return 0;
-      int left = 0;
-      int right = 0;
-      if(root.left!=null) left = rec(root.left);
-      if(root.right!=null) right = rec(root.right);
-      return 1+left+right;
+     private static int leftHt(TreeNode root){
+        if(root==null) return 0; 
+        return 1+leftHt(root.left);
      } 
+     private static int rightHt(TreeNode root){
+        if(root==null) return 0; 
+        return 1+rightHt(root.right);
+     }
      public int countNodes(TreeNode root) {
-        return rec(root);
+       //Optimal solution
+      //TC: O( (log(n))^2 )
+      //SC: O(n)        
+      int left = leftHt(root);
+      int right = rightHt(root);
+      if(left==right){
+        return (int)(Math.pow(2,left)-1);
+      }
+      return 1+countNodes(root.left)+countNodes(root.right);
      }
 }
