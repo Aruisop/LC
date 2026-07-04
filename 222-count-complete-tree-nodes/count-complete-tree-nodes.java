@@ -14,18 +14,15 @@
  * }
  */
 class Solution {
-     private static void inorder(TreeNode root,List<Integer>in){
-         if(root==null) return;
-         inorder(root.left,in);
-         in.add(root.val);
-         inorder(root.right,in);
-     }
+     private static int rec(TreeNode root){
+      if(root==null) return 0;
+      int left = 0;
+      int right = 0;
+      if(root.left!=null) left = rec(root.left);
+      if(root.right!=null) right = rec(root.right);
+      return 1+left+right;
+     } 
      public int countNodes(TreeNode root) {
-         //Bforce: next ---> building optimal soln using this approach
-         //TC: O(n) have to start somewhere
-         //SC: O(n)
-         List<Integer>in = new ArrayList<>();
-         inorder(root,in);
-         return in.size();
+        return rec(root);
      }
 }
