@@ -17,7 +17,7 @@
 ## About
 - This repo is a curated list of problems that I consider **important** for tech interviews.
 - Not **complete**, I am still working on adding some problems and this repo will regularly be maintained.
-- All solutions are not necessarily optimal, but my means of identifying the **most intuitive** approach for going about a particular problem.
+- All solutions are not necessarily optimal, but my means of identifying the **most intuitive** approach for a particular problem.
 ---
 
 ## Philosophy
