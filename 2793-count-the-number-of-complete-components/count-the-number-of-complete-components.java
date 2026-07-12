@@ -1,40 +1,25 @@
 class Solution {
-     private static void dfs(List<List<Integer>>adj,boolean vis[],int start_vertex,List<Integer>comp){
-         vis[start_vertex]=true;
-         comp.add(start_vertex);
-         for(int neigh:adj.get(start_vertex)){
-             if(!vis[neigh]){
-             dfs(adj,vis,neigh,comp);
-             }
-         }
-     }
      public int countCompleteComponents(int n, int[][] edges) {
          List<List<Integer>>adj = new ArrayList<>();
-         for(int i=0;i<n;i++){
-           adj.add(new ArrayList<>());
-         }
+         for(int i=0;i<n;i++) adj.add(new ArrayList<>());
+         for(int i=0;i<n;i++) adj.get(i).add(i);
          for(int e[]:edges){
-             int u = e[0];
-             int v = e[1];
-             adj.get(u).add(v);
-             adj.get(v).add(u);
+            int u = e[0];
+            int v = e[1];
+            adj.get(u).add(v);
+            adj.get(v).add(u);           
          }
-         boolean vis[]=new boolean[n];
-         int comps = 0;
+         Map<List<Integer>,Integer>hm = new HashMap<>();
          for(int i=0;i<n;i++){
-             if(!vis[i]){
-                 boolean flag = true;
-                 List<Integer>comp = new ArrayList<>();
-                 dfs(adj,vis,i,comp);
-                 for(int u:comp){
-                     if(adj.get(u).size()!=comp.size()-1){
-                         flag = false;
-                         break;
-                     }
-                 }
-                 if(flag) comps++;
-             }
+             List<Integer>al = adj.get(i);
+             Collections.sort(al);
+             hm.put(al,hm.getOrDefault(al,0)+1);  
          }
-         return comps;      
+         int complete_comp = 0;
+         //for a compl component of k vertices, k neighs should be present  
+         for(Map.Entry<List<Integer>,Integer>entry:hm.entrySet()){
+           if(entry.getKey().size()==entry.getValue())complete_comp++;  
+         }
+         return complete_comp;    
      }
 }
