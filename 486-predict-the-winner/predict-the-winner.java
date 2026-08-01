@@ -1,6 +1,8 @@
 class Solution {
      private static int rec(int l, int r,int nums[],int memo[][]){
          if(l==r) return memo[l][r] = nums[l];
+         //missed this previously, so it was effectively moving evaluating using recursion :|
+         if(memo[l][r]!=-1) return memo[l][r];
          //at each stage, a pt gained for one player is a point lost for the other
          //so rather than finding the cost at the end for each player
          //find the difference between player1 and player2 scores
