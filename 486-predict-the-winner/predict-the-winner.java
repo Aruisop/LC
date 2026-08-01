@@ -1,16 +1,20 @@
 class Solution {
-     private static int rec(int l, int r,int nums[]){
-         if(l==r) return nums[l];
+     private static int rec(int l, int r,int nums[],int memo[][]){
+         if(l==r) return memo[l][r] = nums[l];
          //at each stage, a pt gained for one player is a point lost for the other
          //so rather than finding the cost at the end for each player
-         //find the difference between player1 and player2 scores 
-         return Math.max(nums[l]-rec(l+1,r,nums),nums[r]-rec(l,r-1,nums)); 
+         //find the difference between player1 and player2 scores
+         return memo[l][r]=Math.max(nums[l]-rec(l+1,r,nums,memo),nums[r]-rec(l,r-1,nums,memo)); 
      } 
      public boolean predictTheWinner(int[] nums) {
-         //Brute-force solution
-         //TC: O(2^n)
+         //Memoised solution
+         //TC: O(n^2)
          //SC: O(n)   
          int n=nums.length;
-         return rec(0,n-1,nums)>=0;
+         int memo[][]=new int[n][n];
+         for(int mem[]:memo){
+            Arrays.fill(mem,-1);
+         }
+         return rec(0,n-1,nums,memo)>=0;
      }
 }
