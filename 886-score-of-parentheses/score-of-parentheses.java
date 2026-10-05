@@ -10,7 +10,7 @@ class Solution {
              }else{
                  if(s.charAt(i-1)=='('){
                     depth-=1;
-                    ans+=Math.pow(2,depth);
+                    ans+=(1<<depth);
                  }else{
                     depth-=1;
                  }
